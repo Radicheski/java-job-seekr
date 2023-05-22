@@ -23,7 +23,7 @@ public class BrowserTest {
     void getScreenshot() {
         browser = new Browser();
         browser.loadUrl(url);
-        File file = browser.saveScreenShot();
+        File file = browser.saveScreenshot();
         assertTrue(file.exists());
         assertTrue(file.length() > 0);
     }

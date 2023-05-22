@@ -21,7 +21,7 @@ public class Browser {
         driver.quit();
     }
 
-    File saveScreenShot() {
+    File saveScreenshot() {
         return driver.getFullPageScreenshotAs(OutputType.FILE);
     }
 
