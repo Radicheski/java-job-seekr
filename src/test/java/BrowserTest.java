@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,10 +29,10 @@ public class BrowserTest {
     }
 
     @Test
-    void getScreenshot() {
-        File file = browser.saveScreenshot();
-        assertTrue(file.exists());
-        assertTrue(file.length() > 0);
+    void getScreenshot() throws IOException {
+        Path file = browser.saveScreenshot();
+        assertTrue(Files.exists(file));
+        assertTrue(Files.size(file) > 0);
     }
 
     @Test

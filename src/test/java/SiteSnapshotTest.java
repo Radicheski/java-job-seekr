@@ -2,8 +2,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +18,7 @@ public class SiteSnapshotTest {
         String text = "Some text";
         String pageSource = "<html><body>SomeCode</body></html>";
         LocalDateTime accessedDateTime = LocalDateTime.now();
-        File screenshot = File.createTempFile("screenshot", null);
+        Path screenshot = Files.createTempFile("screenshot", null);
 
         snapshot = new SiteSnapshot(text, pageSource , accessedDateTime, screenshot);
     }
@@ -47,9 +48,9 @@ public class SiteSnapshotTest {
     }
 
     @AfterAll
-    static void tearDown() {
-        File screenshot = snapshot.getScreenshot();
-        screenshot.delete();
+    static void tearDown() throws IOException {
+        Path screenshot = snapshot.getScreenshot();
+        Files.deleteIfExists(screenshot);
     }
 
 }

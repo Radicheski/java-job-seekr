@@ -2,7 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.io.File;
+import java.nio.file.Path;
 
 public class Browser {
 
@@ -25,8 +25,8 @@ public class Browser {
         driver.quit();
     }
 
-    File saveScreenshot() {
-        return driver.getFullPageScreenshotAs(OutputType.FILE);
+    Path saveScreenshot() {
+        return driver.getFullPageScreenshotAs(OutputType.FILE).toPath();
     }
 
 }

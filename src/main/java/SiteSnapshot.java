@@ -1,4 +1,5 @@
 import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 public class SiteSnapshot {
@@ -6,9 +7,9 @@ public class SiteSnapshot {
     private String text;
     private String pageSource;
     private LocalDateTime accessedDateTime;
-    private File screenshot;
+    private Path screenshot;
 
-    SiteSnapshot(String text, String pageSource, LocalDateTime accessedDateTime, File screenshot) {
+    SiteSnapshot(String text, String pageSource, LocalDateTime accessedDateTime, Path screenshot) {
         this.text = text;
         this.pageSource = pageSource;
         this.accessedDateTime = accessedDateTime;
@@ -27,7 +28,7 @@ public class SiteSnapshot {
         return accessedDateTime;
     }
 
-    File getScreenshot() {
+    Path getScreenshot() {
         return screenshot;
     }
 }

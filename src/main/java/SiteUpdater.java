@@ -1,4 +1,5 @@
 import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 public class SiteUpdater {
@@ -10,7 +11,7 @@ public class SiteUpdater {
         LocalDateTime accessedDateTime = LocalDateTime.now();
         String text = browser.getText();
         String sourcePage = browser.getSourcePage();
-        File screenshot = browser.saveScreenshot();
+        Path screenshot = browser.saveScreenshot();
         SiteSnapshot snapshot = new SiteSnapshot(text, sourcePage, accessedDateTime, screenshot);
         site.addSnapshot(snapshot);
         browser.quit();
