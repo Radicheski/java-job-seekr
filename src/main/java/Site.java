@@ -1,15 +1,18 @@
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
-public class Site implements Iterable<SiteSnapshot> {
+public class Site implements Iterable<SiteSnapshot>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String url;
     private PriorityQueue<SiteSnapshot> snapshots;
 
     Site(String url) {
         this.url = url;
-        this.snapshots = new PriorityQueue<>(Comparator.comparing(SiteSnapshot::getAccessedDateTime).reversed());
+        this.snapshots = new PriorityQueue<>();
     }
 
     boolean isEmpty() {

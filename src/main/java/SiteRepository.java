@@ -1,7 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SiteRepository {
+public class SiteRepository implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private List<Site> sites = new ArrayList<>();
 
