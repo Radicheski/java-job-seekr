@@ -1,7 +1,8 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SiteUpdaterTest {
 
@@ -9,10 +10,29 @@ public class SiteUpdaterTest {
 
     @Test
     void test() {
-        SiteUpdater updater = new SiteUpdater();
+        Browser browser = new Browser();
+        SiteUpdater updater = new SiteUpdater(browser);
         Site site = new Site(url);
         assertTrue(site.isEmpty());
         updater.update(site);
         assertFalse(site.isEmpty());
+        updater.quit();
     }
+
+    @Test
+    void test2() {
+        Browser browser = new ThrowingBrowser();
+        SiteUpdater updater = new SiteUpdater(browser);
+        Site site = new Site(url);
+        assertThrows(RuntimeException.class, () -> updater.update(site));
+        updater.quit();
+    }
+}
+
+class ThrowingBrowser extends Browser {
+    @Override
+    Path saveScreenshot() {
+        return null;
+    }
+
 }
