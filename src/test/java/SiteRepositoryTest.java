@@ -27,4 +27,10 @@ public class SiteRepositoryTest {
     void getUrls() {
         assertEquals(List.of(url), repository.getUrls());
     }
+
+    @Test
+    void getSites() {
+        List<Site> sites = repository.getSites();
+        assertEquals(1, sites.size());
+    }
 }

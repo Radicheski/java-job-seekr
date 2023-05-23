@@ -17,4 +17,8 @@ public class SiteRepository {
         return sites.stream().map(Site::getUrl).toList();
     }
 
+    List<Site> getSites() {
+        return List.copyOf(sites);
+    }
+
 }
