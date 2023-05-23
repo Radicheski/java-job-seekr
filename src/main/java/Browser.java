@@ -17,6 +17,10 @@ public class Browser {
         return driver.findElement(BODY).getText();
     }
 
+    String getSourcePage() {
+        return driver.getPageSource();
+    }
+
     void quit() {
         driver.quit();
     }

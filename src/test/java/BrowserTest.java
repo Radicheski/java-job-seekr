@@ -1,4 +1,6 @@
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -9,27 +11,35 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BrowserTest {
 
     private static Browser browser;
-    private final String url = "https://www.google.com.br/";
+    private static final String url = "https://www.google.com.br/";
+
+    @BeforeAll
+    static void setUp() {
+        browser = new Browser();
+        browser.loadUrl(url);
+    }
 
     @Test
     void checkIfPageIsNotBlank() {
-        browser = new Browser();
-        browser.loadUrl(url);
         String text = browser.getText();
         assertFalse(text.isBlank());
     }
 
     @Test
     void getScreenshot() {
-        browser = new Browser();
-        browser.loadUrl(url);
         File file = browser.saveScreenshot();
         assertTrue(file.exists());
         assertTrue(file.length() > 0);
     }
 
-    @AfterEach
-    void quitBrowser() {
+    @Test
+    void getSourcePage() {
+        String sourcePage = browser.getSourcePage();
+        assertFalse(sourcePage.isBlank());
+    }
+
+    @AfterAll
+    static void quitBrowser() {
         browser.quit();
     }
 
