@@ -51,4 +51,8 @@ public class Site implements Iterable<SiteSnapshot>, Serializable {
         snapshots.remove(snapshot);
     }
 
+    List<SiteSnapshot> getSnapshots() {
+        return List.copyOf(snapshots);
+    }
+
 }

@@ -24,4 +24,10 @@ public class SiteRepository implements Serializable {
         return List.copyOf(sites);
     }
 
+    void delete(Site site) {
+        List<SiteSnapshot> snapshots = site.getSnapshots();
+        snapshots.forEach(site::delete);
+        sites.remove(site);
+    }
+
 }
