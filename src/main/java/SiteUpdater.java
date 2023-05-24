@@ -1,6 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class SiteUpdater {
@@ -11,12 +12,19 @@ public class SiteUpdater {
         this.browser = browser;
     }
 
+    // TODO Refatorar
     void update(Site site) {
+        SiteSnapshot lastSnapshot = site.getLastSnapshot();
         String url = site.getUrl();
         browser.loadUrl(url);
         LocalDateTime accessedDateTime = LocalDateTime.now();
         String text = browser.getText();
         String sourcePage = browser.getSourcePage();
+        if (Objects.nonNull(lastSnapshot) &&
+                lastSnapshot.getText().equals(text) &&
+                lastSnapshot.getPageSource().equals(sourcePage)) {
+            return;
+        }
         Path screenshot = Path.of(".", UUID.randomUUID() + ".png");
         try {
             Files.move(browser.saveScreenshot(), screenshot);
