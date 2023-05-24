@@ -27,8 +27,8 @@ public class SiteTest {
         Path screenshotB = Files.createTempFile(null, null);
         snapshotB = new SiteSnapshot(null, null,
                 LocalDateTime.of(2023, 5, 22, 22, 0, 0), screenshotB);
-        site.addSnapshot(snapshotA);
-        site.addSnapshot(snapshotB);
+        site.add(snapshotA);
+        site.add(snapshotB);
     }
 
     @Test

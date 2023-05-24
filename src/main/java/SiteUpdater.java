@@ -32,7 +32,7 @@ public class SiteUpdater {
             throw new RuntimeException(e);
         }
         SiteSnapshot snapshot = new SiteSnapshot(text, sourcePage, accessedDateTime, screenshot);
-        site.addSnapshot(snapshot);
+        site.add(snapshot);
     }
 
     void quit() {

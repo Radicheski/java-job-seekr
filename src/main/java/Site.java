@@ -4,7 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class Site implements Iterable<SiteSnapshot>, Serializable {
+public class Site implements Iterable<SiteSnapshot>, Serializable, Repository<SiteSnapshot> {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class Site implements Iterable<SiteSnapshot>, Serializable {
         this.snapshots = new PriorityQueue<>();
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return snapshots.isEmpty();
     }
 
@@ -28,7 +28,7 @@ public class Site implements Iterable<SiteSnapshot>, Serializable {
         return url;
     }
 
-    void addSnapshot(SiteSnapshot snapshot) {
+    public void add(SiteSnapshot snapshot) {
         snapshots.add(snapshot);
     }
 
@@ -41,7 +41,7 @@ public class Site implements Iterable<SiteSnapshot>, Serializable {
         return snapshots.size();
     }
 
-    void delete(SiteSnapshot snapshot) {
+    public void delete(SiteSnapshot snapshot) {
         Path screenshot = snapshot.getScreenshot();
         try {
             if (Objects.nonNull(screenshot)) Files.delete(screenshot);
@@ -51,7 +51,7 @@ public class Site implements Iterable<SiteSnapshot>, Serializable {
         snapshots.remove(snapshot);
     }
 
-    List<SiteSnapshot> getSnapshots() {
+    public List<SiteSnapshot> getAll() {
         return List.copyOf(snapshots);
     }
 

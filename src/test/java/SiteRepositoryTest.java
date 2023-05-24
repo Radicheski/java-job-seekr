@@ -4,6 +4,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO Remover duplicação entre SiteRepository e Site (SiteSnapshotRepository). Usar genérico.
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SiteRepositoryTest {
 
@@ -26,19 +28,19 @@ public class SiteRepositoryTest {
     @Test
     @Order(1)
     void getUrls() {
-        assertEquals(List.of(url), repository.getUrls());
+        assertEquals(List.of(url), repository.getAll().stream().map(Site::getUrl).toList());
     }
 
     @Test
     @Order(1)
     void getSites() {
-        List<Site> sites = repository.getSites();
+        List<Site> sites = repository.getAll();
         assertEquals(1, sites.size());
     }
 
     @Test
     void deleteSite() {
-        Site site = repository.getSites().get(0);
+        Site site = repository.getAll().get(0);
         assertFalse(repository.isEmpty());
         repository.delete(site);
         assertTrue(repository.isEmpty());
