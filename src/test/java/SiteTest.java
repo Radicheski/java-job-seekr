@@ -1,11 +1,16 @@
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO Tratar caso onde screenshot é null
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SiteTest {
 
     private static Site site;
@@ -14,17 +19,20 @@ public class SiteTest {
     private static final String url = "https://www.google.com.br/";
 
     @BeforeAll
-    static void setUp() {
+    static void setUp() throws IOException {
         site = new Site(url);
+        Path screenshotA = Path.of("screenshot");
         snapshotA = new SiteSnapshot(null, null,
-                LocalDateTime.of(2023, 5, 22, 23, 0, 0), null);
+                LocalDateTime.of(2023, 5, 22, 23, 0, 0), screenshotA);
+        Path screenshotB = Files.createTempFile(null, null);
         snapshotB = new SiteSnapshot(null, null,
-                LocalDateTime.of(2023, 5, 22, 22, 0, 0), null);
+                LocalDateTime.of(2023, 5, 22, 22, 0, 0), screenshotB);
         site.addSnapshot(snapshotA);
         site.addSnapshot(snapshotB);
     }
 
     @Test
+    @Order(1)
     void getLastSnapshot() {
         assertFalse(site.isEmpty());
         SiteSnapshot snapshot = site.getLastSnapshot();
@@ -41,6 +49,17 @@ public class SiteTest {
     void getUrl() {
         String url = site.getUrl();
         assertEquals(SiteTest.url, url);
+    }
+
+    @Test
+    void deleteSnapshot() {
+        assertEquals(2, site.snapshotCount());
+        SiteSnapshot lastSnapshot = site.getLastSnapshot();
+        site.delete(lastSnapshot);
+        assertEquals(1, site.snapshotCount());
+        lastSnapshot = site.getLastSnapshot();
+        site.delete(lastSnapshot);
+        assertEquals(0, site.snapshotCount());
     }
 
     @Test

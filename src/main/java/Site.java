@@ -1,7 +1,8 @@
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.PriorityQueue;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 
 public class Site implements Iterable<SiteSnapshot>, Serializable {
 
@@ -34,6 +35,20 @@ public class Site implements Iterable<SiteSnapshot>, Serializable {
     @Override
     public Iterator<SiteSnapshot> iterator() {
         return snapshots.iterator();
+    }
+
+    int snapshotCount() {
+        return snapshots.size();
+    }
+
+    void delete(SiteSnapshot snapshot) {
+        Path screenshot = snapshot.getScreenshot();
+        try {
+            if (Objects.nonNull(screenshot)) Files.delete(screenshot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        snapshots.remove(snapshot);
     }
 
 }
