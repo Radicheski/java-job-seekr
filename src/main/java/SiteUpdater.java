@@ -11,27 +11,30 @@ public class SiteUpdater {
         this.browser = browser;
     }
 
-    // TODO Refatorar
     void update(Site site) {
-        SiteSnapshot lastSnapshot = site.getLastSnapshot();
         String url = site.getUrl();
         browser.loadUrl(url);
-        LocalDateTime accessedDateTime = LocalDateTime.now();
+
         String text = browser.getText();
         String sourcePage = browser.getSourcePage();
-        if (Objects.nonNull(lastSnapshot) &&
-                lastSnapshot.getText().equals(text) &&
-                lastSnapshot.getPageSource().equals(sourcePage)) {
-            return;
-        }
+
+        SiteSnapshot newSnapshot = new SiteSnapshot(text, sourcePage, null);
+        SiteSnapshot lastSnapshot = site.getLastSnapshot();
+        if (skipSnapshot(lastSnapshot, newSnapshot)) return;
+
         Path screenshot = Path.of(".", UUID.randomUUID() + ".png");
         try {
             Files.move(browser.saveScreenshot(), screenshot);
+            newSnapshot.setScreenshot(screenshot);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        SiteSnapshot snapshot = new SiteSnapshot(text, sourcePage, screenshot);
-        site.add(snapshot);
+
+        site.add(newSnapshot);
+    }
+
+    private boolean skipSnapshot(SiteSnapshot lastSnapshot, SiteSnapshot newSnapshot) {
+        return Objects.equals(lastSnapshot, newSnapshot);
     }
 
     void quit() {

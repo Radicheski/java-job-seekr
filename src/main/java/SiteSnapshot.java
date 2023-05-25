@@ -16,7 +16,7 @@ public class SiteSnapshot implements Comparable<SiteSnapshot>, Serializable {
         this.text = text;
         this.pageSource = pageSource;
         this.accessedDateTime = LocalDateTime.now();
-        this.screenshot = Objects.nonNull(screenshot) ? screenshot.toAbsolutePath().toString() : null;
+        setScreenshot(screenshot);
     }
 
     String getText() {
@@ -33,6 +33,11 @@ public class SiteSnapshot implements Comparable<SiteSnapshot>, Serializable {
 
     Path getScreenshot() {
         return Path.of(screenshot);
+    }
+
+    public void setScreenshot(Path screenshot) {
+        if (Objects.isNull(screenshot)) return;
+        this.screenshot = screenshot.toAbsolutePath().toString();
     }
 
     @Override
