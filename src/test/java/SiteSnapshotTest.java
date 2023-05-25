@@ -47,6 +47,15 @@ public class SiteSnapshotTest {
         assertNotNull(screenshot);
     }
 
+    @Test
+    void testEquals() {
+        SiteSnapshot snapshotA = new SiteSnapshot("Text", "<html></html>", null, null);
+        SiteSnapshot snapshotB = new SiteSnapshot("Text", "<html></html>", null, null);
+        assertNotSame(snapshotA, snapshotB);
+        assertEquals(snapshotA, snapshotB);
+        assertEquals(snapshotA.hashCode(), snapshotB.hashCode());
+    }
+
     @AfterAll
     static void tearDown() throws IOException {
         Path screenshot = snapshot.getScreenshot();

@@ -39,4 +39,17 @@ public class SiteSnapshot implements Comparable<SiteSnapshot>, Serializable {
     public int compareTo(SiteSnapshot that) {
         return that.getAccessedDateTime().compareTo(this.getAccessedDateTime());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SiteSnapshot snapshot = (SiteSnapshot) o;
+        return Objects.equals(getText(), snapshot.getText()) && Objects.equals(getPageSource(), snapshot.getPageSource());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getText(), getPageSource());
+    }
 }
