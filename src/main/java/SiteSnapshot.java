@@ -12,10 +12,10 @@ public class SiteSnapshot implements Comparable<SiteSnapshot>, Serializable {
     private LocalDateTime accessedDateTime;
     private String screenshot;
 
-    SiteSnapshot(String text, String pageSource, LocalDateTime accessedDateTime, Path screenshot) {
+    SiteSnapshot(String text, String pageSource, Path screenshot) {
         this.text = text;
         this.pageSource = pageSource;
-        this.accessedDateTime = accessedDateTime;
+        this.accessedDateTime = LocalDateTime.now();
         this.screenshot = Objects.nonNull(screenshot) ? screenshot.toAbsolutePath().toString() : null;
     }
 

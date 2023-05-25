@@ -17,10 +17,9 @@ public class SiteSnapshotTest {
     static void setUp() throws IOException {
         String text = "Some text";
         String pageSource = "<html><body>SomeCode</body></html>";
-        LocalDateTime accessedDateTime = LocalDateTime.now();
         Path screenshot = Files.createTempFile("screenshot", null);
 
-        snapshot = new SiteSnapshot(text, pageSource , accessedDateTime, screenshot);
+        snapshot = new SiteSnapshot(text, pageSource , screenshot);
     }
 
     @Test
@@ -49,8 +48,8 @@ public class SiteSnapshotTest {
 
     @Test
     void testEquals() {
-        SiteSnapshot snapshotA = new SiteSnapshot("Text", "<html></html>", null, null);
-        SiteSnapshot snapshotB = new SiteSnapshot("Text", "<html></html>", null, null);
+        SiteSnapshot snapshotA = new SiteSnapshot("Text", "<html></html>", null);
+        SiteSnapshot snapshotB = new SiteSnapshot("Text", "<html></html>", null);
         assertNotSame(snapshotA, snapshotB);
         assertEquals(snapshotA, snapshotB);
         assertEquals(snapshotA.hashCode(), snapshotB.hashCode());

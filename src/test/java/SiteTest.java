@@ -22,11 +22,9 @@ public class SiteTest {
     static void setUp() throws IOException {
         site = new Site(url);
         Path screenshotA = Path.of("screenshot");
-        snapshotA = new SiteSnapshot(null, null,
-                LocalDateTime.of(2023, 5, 22, 23, 0, 0), screenshotA);
+        snapshotA = new SiteSnapshot(null, null, screenshotA);
         Path screenshotB = Files.createTempFile(null, null);
-        snapshotB = new SiteSnapshot(null, null,
-                LocalDateTime.of(2023, 5, 22, 22, 0, 0), screenshotB);
+        snapshotB = new SiteSnapshot(null, null, screenshotB);
         site.add(snapshotA);
         site.add(snapshotB);
     }

@@ -1,6 +1,5 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class SiteUpdater {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        SiteSnapshot snapshot = new SiteSnapshot(text, sourcePage, accessedDateTime, screenshot);
+        SiteSnapshot snapshot = new SiteSnapshot(text, sourcePage, screenshot);
         site.add(snapshot);
     }
 
